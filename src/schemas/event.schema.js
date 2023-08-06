@@ -7,7 +7,5 @@ export const createEventSchema = z.object({
   description: z.string({
     required_error: "La descripción es obligatoria"
   }),
-  date: z.string({
-    required_error: "La fecha es obligatoria"
-  }).datetime()
+  date: z.string().optional()
 })
