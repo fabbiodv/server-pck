@@ -9,16 +9,20 @@ export const getEvents = async (req, res) => {
 }
 
 export const createEvent = async (req, res) => {
-  const { title, description, date } = req.body
+  try {
+    const { title, description, date } = req.body
 
-  const newEvent = new Event({
-    title,
-    description,
-    date,
-    user: req.user.id
-  })
-  const savedEvent = await newEvent.save()
-  res.json(savedEvent)
+    const newEvent = new Event({
+      title,
+      description,
+      date,
+      user: req.user.id
+    })
+    const savedEvent = await newEvent.save()
+    res.json(savedEvent)
+  } catch (error) {
+    return res.status(500).json({ message: "Algo salio mal!" })
+  }
 }
 
 export const getEvent = async (req, res) => {
@@ -28,15 +32,23 @@ export const getEvent = async (req, res) => {
 }
 
 export const deleteEvent = async (req, res) => {
-  const event = await Event.findByIdAndDelete(req.params.id)
-  if (!event) return res.status(404).json({ message: "Evento no encontrado" })
-  res.json(event)
+  try {
+    const event = await Event.findByIdAndDelete(req.params.id)
+    if (!event) return res.status(404).json({ message: "Evento no encontrado" })
+    return res.sendStatus(204)
+  } catch (error) {
+    return res.status(404).json({ message: "Evento no encontrado" })
+  }
 }
 
 export const updateEvent = async (req, res) => {
-  const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
-    new: true
-  })
-  if (!event) return res.status(404).json({ message: "Evento no encontrado" })
-  res.json(event)
+  try {
+    const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
+    })
+    if (!event) return res.status(404).json({ message: "Evento no encontrado" })
+    res.json(event)
+  } catch (error) {
+    return res.status(404).json({ message: "Evento no encontrado" })
+  }
 }
