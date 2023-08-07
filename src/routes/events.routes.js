@@ -14,7 +14,7 @@ router.post('/events', authRequired, validateSchema(createEventSchema), createEv
 
 router.delete('/events/:id', authRequired, deleteEvent)
 
-router.put('/events/:id', authRequired, updateEvent)
+router.put('/my-events/:id', authRequired, updateEvent)
 
 
 export default router
