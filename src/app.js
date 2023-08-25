@@ -9,7 +9,7 @@ import eventsRoutes from './routes/events.routes.js'
 const app = express()
 
 app.use(cors({
-  origin: 'https://beta-partyckets.vercel.app',
+  origin: ['http://localhost:5173', 'https://beta-partyckets.vercel.app/'],
   credentials: true,
 }))
 app.use(express.static('build'))
