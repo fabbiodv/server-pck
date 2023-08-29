@@ -8,6 +8,7 @@ import eventsRoutes from './routes/events.routes.js'
 
 const app = express()
 
+app.use(cookieParser())
 app.use(cors({
   origin: ['http://localhost:5173', 'https://beta-partyckets.vercel.app'],
   credentials: true,
@@ -15,7 +16,6 @@ app.use(cors({
 app.use(express.static('build'))
 app.use(morgan('dev'))
 app.use(express.json())
-app.use(cookieParser())
 app.use('/api', authRoutes)
 app.use('/api', eventsRoutes)
 

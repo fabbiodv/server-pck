@@ -45,17 +45,14 @@ export const login = async (req, res) => {
     if (!isMatch) return res.status(400).json({ message: "Contraseña incorrecta" })
 
     const token = await createAccessToken({ id: userFound._id })
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-    })
+    console.log('token en login', token)
     res.json({
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
       createdAt: userFound.createdAt,
       updatedAt: userFound.updatedAt,
+      token,
     })
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -85,7 +82,8 @@ export const profile = async (req, res) => {
 
 export const verifyToken = async (req, res) => {
 
-  const { token } = req.cookies
+  const token = req.headers.authorization
+  console.log(token)
 
   if (!token) return res.status(401).json({ message: "Unauthorized" })
 
