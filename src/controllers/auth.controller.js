@@ -83,7 +83,6 @@ export const profile = async (req, res) => {
 export const verifyToken = async (req, res) => {
 
   const token = req.headers.authorization
-  console.log(token)
 
   if (!token) return res.status(401).json({ message: "Unauthorized" })
 

@@ -3,7 +3,12 @@ import { TOKEN_SECRET } from "../config.js"
 
 
 export const authRequired = (req, res, next) => {
-  const token = req.headers.authorization; // Get token from the Authorization header
+  const authorization = req.get('authorization')
+  let token = ''
+
+  if (authorization && authorization.toLocaleLowerCase().startsWith('bearer')) {
+    token = authorization.substring(7)
+  }
 
   if (!token)
     return res.status(401).json({ message: "No hay token, autorizacion denegada" })
