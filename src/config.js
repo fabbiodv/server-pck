@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 export const TOKEN_SECRET = 'some secret key'
 
-export const PORT = process.env.PORT || 50000
+export const PORT = process.env.PORT || 5000
